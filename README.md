@@ -206,37 +206,37 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
 
 2. Run the `main.go` file with your preferred options:
 
-    e.g. To download the whole album: 
-    ```sh
-    go run main.go https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511
-    ```
-    \
-    To download some selected songs in the album: 
-    ```sh
-    go run main.go --select https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511
-    ``` 
-    \
-    Once prompted, enter your numbers separated by spaces.
+e.g. To download the whole album: 
+```sh
+go run main.go https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511
+```
+\
+To download some selected songs in the album: 
+```sh
+go run main.go --select https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511
+``` 
+\
+Once prompted, enter your numbers separated by spaces.
 
-    To download the entire playlist: 
-    ```sh
-    go run main.go https://music.apple.com/us/playlist/taylor-swift-essentials/pl.3950454ced8c45a3b0cc693c2a7db97b
-    ``` 
-    or 
-    ```sh
-    go run main.go https://music.apple.com/us/playlist/hi-res-lossless-24-bit-192khz/pl.u-MDAWvpjt38370N
-    ```
-    \
-    To download all albums from an artist:
-    ```sh
-    go run main.go https://music.apple.com/us/artist/taylor-swift/159260351 --all-album
-    ```
-    \
-    To download songs with Dolby Atmos® support: 
-    ```sh
-    go run main.go --atmos https://music.apple.com/us/album/1989-taylors-version-deluxe/1713845538
-    ```
-    \
+To download the entire playlist: 
+```sh
+go run main.go https://music.apple.com/us/playlist/taylor-swift-essentials/pl.3950454ced8c45a3b0cc693c2a7db97b
+``` 
+or 
+```sh
+go run main.go https://music.apple.com/us/playlist/hi-res-lossless-24-bit-192khz/pl.u-MDAWvpjt38370N
+```
+\
+To download all albums from an artist:
+```sh
+go run main.go https://music.apple.com/us/artist/taylor-swift/159260351 --all-album
+```
+\
+To download songs with Dolby Atmos® support: 
+```sh
+go run main.go --atmos https://music.apple.com/us/album/1989-taylors-version-deluxe/1713845538
+```
+\
 
 and replace the URL above with your vaild URL
 
