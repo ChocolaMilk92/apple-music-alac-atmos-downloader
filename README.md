@@ -38,9 +38,9 @@ For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDec
 
 ## How To Use
 
-1. Start up the decoding daemon:
+**1. Start up the decoding daemon:**
 
-- With frida server
+- With **frida server**:
     1. Create a virtual device on Android Studio with an image that doesn't have Google APIs.
     2. Install this version of Apple Music: [Apple Music 3.6.0 beta](https://www.apkmirror.com/apk/apple/apple-music/apple-music-3-6-0-beta-release/apple-music-3-6-0-beta-4-android-apk-download/). You will also need SAI to install it: [SAI on F-Droid](https://f-droid.org/pt_BR/packages/com.aefyr.sai.fdroid/).
     3. Launch Apple Music and sign in to your account (subscription required).
@@ -48,12 +48,12 @@ For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDec
     ```sh
     adb forward tcp:10020 tcp:10020
     ```
-    6. Start the frida agent with the command bellow:
+    6. Start the **frida** agent with the command bellow:
     ```sh
     frida -U -l agent.js -f com.apple.android.music
     ```
-- With wrapper
-1. Run the following command to download wrapper:
+- With **wrapper**:
+1. Run the following command to download **wrapper**:
 ```sh
 wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linux.x86_64.tar.gz" && mkdir wrapper && tar -xzf wrapper.linux.x86_64.tar.gz -C wrapper
 ```
@@ -76,8 +76,8 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
 
 > [!WARNING]
 > The follow script is still in testing stage, I cannot guarantee the script 100% works.
-- With python script (beta):
-    1. Copy the python script below:
+- With **python script** (beta):
+    1. Copy the **python script** below:
     ```python
     #!/usr/bin/env python3
     import os
@@ -204,7 +204,7 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
     \
     3. Once the service is being moved to background. move on to Step 2 in the same terminal. 
 
-2. Run the `main.go` file with your preferred options:
+**2. Run the `main.go` file with your preferred options:**
     \
     e.g. To download the whole album: 
     ```sh
