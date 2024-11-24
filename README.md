@@ -9,7 +9,7 @@ Original script by Sorrow. Modified by [@zhaarey](https://github.com/zhaarey) an
 ## New Features
 
 - MP4Box will be called automatically to package EC3 as M4A file.
-- Changed the directory structure to `ArtistName\AlbumName`; for Atmos download files, move them to `AM-DL-Atmos downloads` and change directory structure to `ArtistName\AlbumName [Atmos]`.
+- Changed the directory structure to `ArtistName\AlbumName`; For Atmos files, its directory structure has changed to `ArtistName\AlbumName [Atmos]` and files are moved into `AM-DL-Atmos downloads`.
 - Added support for overall completion status display upon finishing the run.
 - Automatically embed cover art and LRC lyrics (requires `media-user-token`).
 - Supports `check` with `main` which can take a text address or API database.
