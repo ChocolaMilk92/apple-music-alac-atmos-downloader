@@ -22,19 +22,19 @@ Original script by Sorrow. Modified by [@zhaarey](https://github.com/zhaarey) an
 
 ### Supported Formats
 
-- ALAC (audio-alac-stereo)
-- EC3 (audio-atmos / audio-ec3)
+- ALAC `(audio-alac-stereo)`
+- EC3 `(audio-atmos / audio-ec3)`
 
 For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDecrypt](https://github.com/WorldObservationLog/AppleMusicDecrypt).
 
 ### Supported formats for AppleMusicDecrypt
 
-- ALAC (audio-alac-stereo)
-- EC3 (audio-atmos / audio-ec3)
-- AC3 (audio-ac3)
-- AAC (audio-stereo)
-- AAC-binaural (audio-stereo-binaural)
-- AAC-downmix (audio-stereo-downmix)
+- ALAC `(audio-alac-stereo)`
+- EC3 `(audio-atmos / audio-ec3)`
+- AC3 `(audio-ac3)`
+- AAC `(audio-stereo)`
+- AAC-binaural `(audio-stereo-binaural)`
+- AAC-downmix `(audio-stereo-downmix)`
 
 ## How To Use
 
@@ -57,7 +57,7 @@ For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDec
 ```sh
 wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linux.x86_64.tar.gz" && mkdir wrapper && tar -xzf wrapper.linux.x86_64.tar.gz -C wrapper
 ```
-2. Start the wrapper daemon:
+2. Start the **wrapper daemon**:
 - With command:
     1. cd to wrapper directory
     ```sh
