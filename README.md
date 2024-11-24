@@ -2,7 +2,7 @@
 
 Original script by Sorrow. Modified by [@zhaarey](https://github.com/zhaarey) and me to include some fixes and improvements.
 
-> [!NOTE]
+> [!IMPORTANT]
 > Install MP4Box before continuing. Ensure it's correctly added to the environment variables.\
 > You can do this by entering `apt install wget git golang gpac ffmpeg nano -y` in your terminal.
 
