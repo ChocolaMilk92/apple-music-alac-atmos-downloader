@@ -53,156 +53,156 @@ For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDec
     frida -U -l agent.js -f com.apple.android.music
     ```
 - With wrapper
-    1. Run the following command to download wrapper:
+1. Run the following command to download wrapper:
+```sh
+wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linux.x86_64.tar.gz" && mkdir wrapper && tar -xzf wrapper.linux.x86_64.tar.gz -C wrapper
+```
+2. Start the wrapper daemon:
+- With command:
+    1. cd to wrapper directory
     ```sh
-    wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linux.x86_64.tar.gz" && mkdir wrapper && tar -xzf wrapper.linux.x86_64.tar.gz -C wrapper
+    cd wrapper
     ```
-    2. Start the wrapper daemon:
-    - With command:
-        1. cd to wrapper directory
-        ```sh
-        cd wrapper
-        ```
-        \
-        2. Start the daemon with following command:
-        ```sh
-        ./wrapper -D 10020 -M 20020 -L username:password
-        ```
-        \
-        Replace both `username` and `password` with your Apple Music account credentials.
-        \
-        \
-        3. Once the service is running on background. move on to Step 2 by opening another terminal.
+    \
+    2. Start the daemon with following command:
+    ```sh
+    ./wrapper -D 10020 -M 20020 -L username:password
+    ```
+    \
+    Replace both `username` and `password` with your Apple Music account credentials.
+    \
+    \
+    3. Once the service is running on background. move on to Step 2 by opening another terminal.
 
 > [!WARNING]
 > The follow script is still in testing stage, I cannot guarantee the script 100% works.
-    - With python script (beta):
-        1. Copy the python script below:
-        ```python
-        #!/usr/bin/env python3
-        import os
-        import sys
-        import time
-        import subprocess
-        import threading
-        import getpass
-        from datetime import datetime
-        import multiprocessing
+- With python script (beta):
+    1. Copy the python script below:
+    ```python
+    #!/usr/bin/env python3
+    import os
+    import sys
+    import time
+    import subprocess
+    import threading
+    import getpass
+    from datetime import datetime
+    import multiprocessing
 
-        def get_credentials():
-        username = input("Enter username (add 86 prefix for Chinese mainland): ")
-        password = getpass.getpass("Enter password: ")
-        return f"{username}:{password}"
+    def get_credentials():
+    username = input("Enter username (add 86 prefix for Chinese mainland): ")
+    password = getpass.getpass("Enter password: ")
+    return f"{username}:{password}"
 
-        def log_output(timestamp, message):
-        with open("wrapper_log.txt", "a") as log:
-            log.write(f"[{timestamp}] {message}\n")
+    def log_output(timestamp, message):
+    with open("wrapper_log.txt", "a") as log:
+        log.write(f"[{timestamp}] {message}\n")
 
-        def handle_2fa():
-        code = input("Enter 2FA code: ")
-        return code + "\n"
+    def handle_2fa():
+    code = input("Enter 2FA code: ")
+    return code + "\n"
 
-        def background_process(log_file):
-        # Redirect standard file descriptors
-        with open(os.devnull, 'r') as devnull:
-            os.dup2(devnull.fileno(), sys.stdin.fileno())
-        with open(log_file, 'a') as log:
-            os.dup2(log.fileno(), sys.stdout.fileno())
-            os.dup2(log.fileno(), sys.stderr.fileno())
+    def background_process(log_file):
+    # Redirect standard file descriptors
+    with open(os.devnull, 'r') as devnull:
+        os.dup2(devnull.fileno(), sys.stdin.fileno())
+    with open(log_file, 'a') as log:
+        os.dup2(log.fileno(), sys.stdout.fileno())
+        os.dup2(log.fileno(), sys.stderr.fileno())
 
-        def read_output(process):
-        m3u8_seen = False
-        while True:
-            line = process.stdout.readline()
-            if not line and process.poll() is not None:
-                break
-            if line:
-                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                line = line.decode('utf-8', errors='replace').strip()
-                
-                # Print to console only before backgrounding
-                if not m3u8_seen:
-                    print(f"[{timestamp}] {line}")
-                
-                log_output(timestamp, line)
-                
-                # Check for login failure
-                if "login failed" in line.lower():
-                    print("\nLogin failed. Exiting...")
-                    sys.stdout.flush()
-                    time.sleep(0.1)  # Give time for the message to be printed
-                    process.terminate()
-                    sys.exit(1)
-                
-                if "listening m3u8 request on" in line and not m3u8_seen:
-                    m3u8_seen = True
-                    print("\nService is ready. Moving to background...")
-                    sys.stdout.flush()
-                    
-                    # Create new background process using multiprocessing
-                    ctx = multiprocessing.get_context('spawn')
-                    p = ctx.Process(target=background_process, args=("wrapper_log.txt",))
-                    p.daemon = True
-                    p.start()
-                    
-                    # Exit the parent process
-                    os._exit(0)
-                        
-                if "2FA code:" in line or "verification code" in line:
-                    code = handle_2fa()
-                    process.stdin.write(code.encode())
-                    process.stdin.flush()
-
-        def main():
-        try:
-            # Change to wrapper directory
-            os.chdir("wrapper")
+    def read_output(process):
+    m3u8_seen = False
+    while True:
+        line = process.stdout.readline()
+        if not line and process.poll() is not None:
+            break
+        if line:
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            line = line.decode('utf-8', errors='replace').strip()
             
-            # Get credentials
-            credentials = get_credentials()
+            # Print to console only before backgrounding
+            if not m3u8_seen:
+                print(f"[{timestamp}] {line}")
             
-            # Start wrapper process
-            process = subprocess.Popen(
-                ["./wrapper", "-D", "10020", "-M", "20020", "-L", credentials],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                bufsize=0,
-                universal_newlines=False
-            )
-
-            # Start output reading thread
-            output_thread = threading.Thread(target=read_output, args=(process,))
-            output_thread.daemon = True
-            output_thread.start()
-
-            # Wait for process to complete or error
-            process.wait()
+            log_output(timestamp, line)
             
-            # If process exits with non-zero status, exit the script
-            if process.returncode != 0:
-                sys.exit(process.returncode)
-
-        except KeyboardInterrupt:
-            print("\nInterrupted by user")
-            if 'process' in locals() and process.poll() is None:
+            # Check for login failure
+            if "login failed" in line.lower():
+                print("\nLogin failed. Exiting...")
+                sys.stdout.flush()
+                time.sleep(0.1)  # Give time for the message to be printed
                 process.terminate()
-                process.wait(timeout=5)
-            sys.exit(1)
-        except Exception as e:
-            print(f"Error: {str(e)}")
-            sys.exit(1)
+                sys.exit(1)
+            
+            if "listening m3u8 request on" in line and not m3u8_seen:
+                m3u8_seen = True
+                print("\nService is ready. Moving to background...")
+                sys.stdout.flush()
+                
+                # Create new background process using multiprocessing
+                ctx = multiprocessing.get_context('spawn')
+                p = ctx.Process(target=background_process, args=("wrapper_log.txt",))
+                p.daemon = True
+                p.start()
+                
+                # Exit the parent process
+                os._exit(0)
+                    
+            if "2FA code:" in line or "verification code" in line:
+                code = handle_2fa()
+                process.stdin.write(code.encode())
+                process.stdin.flush()
 
-        if __name__ == "__main__":
-        multiprocessing.set_start_method('spawn')
-        main()
-        ```
-        \
-        and store it to your root user directory.
-        \
-        2. Run the code and enter your Apple Music credentials.
-        \
-        3. Once the service is being moved to background. move on to Step 2 in the same terminal. 
+    def main():
+    try:
+        # Change to wrapper directory
+        os.chdir("wrapper")
+        
+        # Get credentials
+        credentials = get_credentials()
+        
+        # Start wrapper process
+        process = subprocess.Popen(
+            ["./wrapper", "-D", "10020", "-M", "20020", "-L", credentials],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            bufsize=0,
+            universal_newlines=False
+        )
+
+        # Start output reading thread
+        output_thread = threading.Thread(target=read_output, args=(process,))
+        output_thread.daemon = True
+        output_thread.start()
+
+        # Wait for process to complete or error
+        process.wait()
+        
+        # If process exits with non-zero status, exit the script
+        if process.returncode != 0:
+            sys.exit(process.returncode)
+
+    except KeyboardInterrupt:
+        print("\nInterrupted by user")
+        if 'process' in locals() and process.poll() is None:
+            process.terminate()
+            process.wait(timeout=5)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
+
+    if __name__ == "__main__":
+    multiprocessing.set_start_method('spawn')
+    main()
+    ```
+    \
+    and store it to your root user directory.
+    \
+    2. Run the code and enter your Apple Music credentials.
+    \
+    3. Once the service is being moved to background. move on to Step 2 in the same terminal. 
 
 2. Run the `main.go` file with your preferred options:
 
