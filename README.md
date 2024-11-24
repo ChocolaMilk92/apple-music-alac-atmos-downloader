@@ -74,7 +74,9 @@ For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDec
         \
         3. Once the service is running on background. move on to Step 2 by opening another terminal.
 
-    - With python script:
+    - With python script (beta):
+        > [!WARNING]
+        > The follow script is still in testing stage, I cannot guarantee the script 100% works.
         1. Copy the python script below:
         ```python
         #!/usr/bin/env python3
