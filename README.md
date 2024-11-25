@@ -19,6 +19,7 @@ Original script by Sorrow. Credit to [@zhaarey](https://github.com/zhaarey) and 
 - Add wrapper integration with its insane decryption speed rate (Supports Linux OS currently)
 - Add support for length limitation with `limit-max` (default value of `limit-max` is 200).
 - Add support for synchronized and unsynchronized lyrics.
+- Add support for decoding files for arm64 platforms.
 
 ### Supported Formats
 
@@ -49,9 +50,14 @@ For AAC downloads, it is recommended to use [WorldObservationLog's AppleMusicDec
     adb forward tcp:10020 tcp:10020
     ```
     6. Start the **frida** agent with the command bellow:
-    ```sh
-    frida -U -l agent.js -f com.apple.android.music
-    ```
+        - For x86 platforms:
+        ```sh
+        frida -U -l agent.js -f com.apple.android.music
+        ```
+        - For arm64 platforms:
+       ```sh
+        frida -U -l agent-arm64.js -f com.apple.android.music
+       ```
 - With **wrapper**:
 1. Run the following command to download **wrapper**:
 ```sh
