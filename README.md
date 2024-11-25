@@ -75,7 +75,7 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
     3. Once the service is running on background. move on to Step 2 by opening another terminal.
 
 > [!WARNING]
-> The follow script is still in testing stage, I cannot guarantee the script 100% works.
+> The following script is still in the testing stage; I do not guarantee the script will fully work.
 - With **python script** (beta):
     1. Copy the **python script** below:
     ```python
