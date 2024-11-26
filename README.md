@@ -83,7 +83,7 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
 > [!WARNING]
 > The following script is still in the testing stage; I do not guarantee the script will fully work.
 - With **python script** (beta):
-    1. Download the following **python script** to your host and make it executable:
+    1. Download the following file to your host and make it executable:
     ```sh
     wget https://github.com/ChocolaMilk92/apple-music-alac-atmos-downloader/blob/main/wrapper.py
     chmod +x wrapper.py
