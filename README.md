@@ -85,7 +85,7 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
 - With **python script** (beta):
     1. Download the following file to your host and make it executable:
     ```sh
-    wget https://github.com/ChocolaMilk92/apple-music-alac-atmos-downloader/blob/main/wrapper.py
+    wget https://raw.githubusercontent.com/ChocolaMilk92/apple-music-alac-atmos-downloader/main/wrapper.py
     chmod +x wrapper.py
     ```
     \
