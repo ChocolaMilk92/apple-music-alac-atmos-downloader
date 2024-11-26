@@ -83,16 +83,15 @@ wget "https://github.com/itouakirai/wrapper/releases/download/linux/wrapper.linu
 > [!WARNING]
 > The following script is still in the testing stage; I do not guarantee the script will fully work.
 - With **python script** (beta):
-    1. Download the following **python script** to your host:
+    1. Download the following **python script** to your host and make it executable:
     ```sh
     wget https://github.com/ChocolaMilk92/apple-music-alac-atmos-downloader/blob/main/wrapper.py
+    chmod +x wrapper.py
     ```
-    \
-    and store it to your root user directory.
     \
     2. Run the code and enter your Apple Music credentials.
     \
-    3. Once the service is being moved to background. move on to Step 2 in the same terminal. 
+    3. Once the service is moved to the background. move on to Step 2 in the same terminal. 
 
 **2. Run the `main.go` file with your preferred options:**
 - To download the whole album:
